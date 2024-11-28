@@ -1,0 +1,9 @@
+---
+
+ImageNameGithubCaddy: docker.io/library/caddy
+#ImageTagGithubCaddy: 2.8.4-alpine
+ImageTagGithubCaddy: 2.8.4
+
+ConfigPath: caddy.yaml
+
+

@@ -1,0 +1,25 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: caddy
+  labels:
+    app: caddy
+spec:
+  selector:
+    matchLabels:
+      app: caddy
+  template:
+    metadata:
+      name: caddy
+      labels:
+        app: caddy
+    spec:
+      containers:
+        - name: caddy
+          imagePullPolicy: IfNotPresent
+          image: "{{ $.Values.ImageNameGithubCaddy }}:{{ $.Values.ImageTagGithubCaddy }}"
+          envFrom:
+            - configMapRef:
+                name: caddy
+
