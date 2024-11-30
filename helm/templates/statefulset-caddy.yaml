@@ -5,21 +5,147 @@ metadata:
   name: caddy
   labels:
     app: caddy
+
 spec:
   selector:
     matchLabels:
       app: caddy
+
   template:
     metadata:
       name: caddy
       labels:
         app: caddy
     spec:
+
+      volumes:
+        - name: data-volume
+          persistentVolumeClaim:
+            claimName: data-persistentvolumeclaim
+        - name: config-volume
+          persistentVolumeClaim:
+            claimName: config-persistentvolumeclaim
+        - name: etc-caddy-volume
+          persistentVolumeClaim:
+            claimName: etc-caddy-persistentvolumeclaim
+
       containers:
+
         - name: caddy
           imagePullPolicy: IfNotPresent
           image: "{{ $.Values.ImageNameGithubCaddy }}:{{ $.Values.ImageTagGithubCaddy }}"
           envFrom:
             - configMapRef:
                 name: caddy
+
+          volumeMounts:
+            - name: data-volume
+              mountPath: /data/
+            - name: config-volume
+              mountPath: /config/
+            - name: etc-caddy-volume
+              mountPath: /etc/caddy/
+
+
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: data-persistentvolumeclaim
+  labels:
+    app: caddy
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 100M
+  volumeName: data-persistentvolume
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: config-persistentvolumeclaim
+  labels:
+    app: caddy
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 100M
+  volumeName: config-persistentvolume
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: etc-caddy-persistentvolumeclaim
+  labels:
+    app: caddy
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 100M
+  volumeName: etc-caddy-persistentvolume
+
+
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: data-persistentvolume
+  labels:
+    type: local
+    app: caddy
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 100M
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "{{ $.Values.DataDir }}"
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: config-persistentvolume
+  labels:
+    type: local
+    app: caddy
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 100M
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "{{ $.Values.ConfigDir }}"
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: etc-caddy-persistentvolume
+  labels:
+    type: local
+    app: caddy
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 100M
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "{{ $.Values.EtcCaddyDir }}"
 

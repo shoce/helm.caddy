@@ -6,4 +6,8 @@ ImageTagGithubCaddy: 2.8.4
 
 ConfigPath: caddy.yaml
 
+DataDir: /opt/caddy/data/
+ConfigDir: /opt/caddy/config/
+EtcCaddyDir: /opt/caddy/etc-caddy/
+
 
