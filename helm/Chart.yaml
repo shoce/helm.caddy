@@ -1,8 +1,8 @@
 apiVersion: v2
-name: caddy
-description: helm chart for the caddy server
+name: helm.caddy
+description: Helm Chart for Caddy server
 type: application
 version: __VERSION__
 appVersion: __VERSION__
-home: https://github.com/shoce/helm.caddy/tree/main/helm/
+home: https://github.com/shoce/helm.caddy/
 
