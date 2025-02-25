@@ -2,7 +2,7 @@
 
 ImageNameGithubCaddy: docker.io/library/caddy
 # https://hub.docker.com/_/caddy/tags
-ImageTagGithubCaddy: 2.8.4
+ImageTagGithubCaddy: 2.9.1
 
 DataDir: /opt/caddy/data/
 ConfigDir: /opt/caddy/config/
