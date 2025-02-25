@@ -1,12 +1,15 @@
 ---
 apiVersion: apps/v1
 kind: StatefulSet
+
 metadata:
   name: caddy
+  namespace: {{ $.Release.Namespace }}
   labels:
     app: caddy
 
 spec:
+
   selector:
     matchLabels:
       app: caddy
@@ -16,6 +19,7 @@ spec:
       name: caddy
       labels:
         app: caddy
+
     spec:
 
       volumes:

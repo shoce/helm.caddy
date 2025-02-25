@@ -1,11 +1,15 @@
 ---
 apiVersion: v1
 kind: Service
+
 metadata:
   name: caddy
+  namespace: {{ $.Release.Namespace }}
   labels:
     app: caddy
+
 spec:
+
   selector:
     app: caddy
   type: ClusterIP
